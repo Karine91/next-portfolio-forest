@@ -1,0 +1,37 @@
+@import "../../styles/variables.scss";
+@import "../../styles/mixins.scss";
+
+.inputWrapper {
+  background: $white;
+  border-radius: 25px;
+  display: flex;
+  width: 100%;
+
+  overflow: hidden;
+}
+
+.inputFocused .input {
+  border: 2px solid $green;
+  transition: all ease 0.3s;
+}
+
+.input {
+  border: 0;
+  border-radius: 25px;
+  width: 100%;
+  padding: 12px 15px;
+  border: 2px solid transparent;
+  @include placeholder {
+    color: rgba($gray, 0.5);
+  }
+
+  &:focus {
+    outline: none;
+    box-shadow: none;
+  }
+}
+
+.inputWithAddon .input {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}

@@ -1,0 +1,36 @@
+@mixin large {
+  @media (max-width: 1200px) {
+    @content;
+  }
+}
+@mixin tablets() {
+  @media screen and (max-width: 768px) {
+    @content;
+  }
+}
+@mixin media($width) {
+  @media screen and (max-width: $width) {
+    @content;
+  }
+}
+
+@mixin mobile() {
+  @media screen and (max-width: 320px) {
+    @content;
+  }
+}
+
+@mixin placeholder {
+  ::-webkit-input-placeholder {
+    @content;
+  }
+  :-moz-placeholder {
+    @content;
+  }
+  ::-moz-placeholder {
+    @content;
+  }
+  :-ms-input-placeholder {
+    @content;
+  }
+}

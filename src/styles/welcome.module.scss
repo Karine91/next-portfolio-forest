@@ -1,0 +1,99 @@
+@import "./mixins.scss";
+@import "./variables.scss";
+
+.main {
+  min-height: 100vh;
+  @media (max-width: 968px) and (orientation: landscape) {
+    height: 100vw;
+  }
+}
+
+.mainWrapper {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex-grow: 1;
+}
+
+.headerContent {
+  padding-top: 25px;
+  padding-left: 30px;
+  padding-right: 100px;
+  justify-content: flex-end;
+  @include tablets {
+    padding-right: 25px;
+  }
+  @include media(420px) {
+    justify-content: center;
+  }
+  position: relative;
+}
+
+.mainContent {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  perspective: 800px;
+  flex-grow: 1;
+}
+
+.header {
+  padding-top: 25px;
+  padding-right: 100px;
+  padding-left: 30px;
+  display: flex;
+  justify-content: flex-end;
+  position: relative;
+  @include tablets {
+    padding-right: 30px;
+  }
+  @include mobile {
+    justify-content: center;
+  }
+}
+
+.btnAuth {
+  color: $white;
+  padding: 10px 25px;
+  width: 150px;
+  display: block;
+  transition: all ease 400ms;
+  text-decoration: none;
+  font-family: "Roboto-Medium";
+  border-radius: 20px;
+  border: 1px solid $white;
+  background: none;
+  &:hover,
+  &:focus {
+    background-color: $darkgreen;
+    border-color: $green;
+    cursor: pointer;
+    box-shadow: none;
+    outline: none;
+  }
+}
+
+.btnAuthHide {
+  display: none;
+}
+
+.footer {
+  padding-bottom: 40px;
+  text-align: center;
+  @include mobile {
+    padding-bottom: 10px;
+  }
+}
+
+.copyright {
+  color: $white;
+  font-family: "Roboto-Light";
+  font-size: 16px;
+}

@@ -1,0 +1,210 @@
+@import "../../styles/mixins.scss";
+@import "../../styles/variables.scss";
+
+.WelcomeForm {
+  transform-style: preserve-3d;
+  width: 380px;
+  height: 395px;
+  position: relative;
+  transition: all 0.6s ease;
+  transform: rotateY(0deg);
+  @include media(420px) {
+    width: 100%;
+    margin: 0 10px;
+  }
+  .WelcomeFormBack {
+    pointer-events: none;
+  }
+}
+
+.WelcomeFormFlipped {
+  transform: rotateY(180deg);
+  .WelcomeFormBack {
+    pointer-events: auto;
+  }
+  .WelcomeFormFront {
+    pointer-events: none;
+  }
+}
+
+.WelcomeFormFront,
+.WelcomeFormBack {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 5px;
+  overflow: hidden;
+  backface-visibility: hidden;
+  height: 100%;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  background-color: rgba(#122620, 0.6);
+}
+
+.WelcomeFormFront {
+  justify-content: space-between;
+}
+.WelcomeFormBack {
+  height: 427px;
+  transform: rotateY(180deg);
+  pointer-events: none;
+}
+.userInfo {
+  flex-grow: 1;
+}
+
+.user {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.userPicture {
+  border-radius: 50%;
+  width: 150px;
+  height: 150px;
+  overflow: hidden;
+  background-color: #fff;
+  margin-top: 40px;
+  margin-bottom: 20px;
+}
+.userImg {
+  width: 100%;
+  display: block;
+}
+.userName {
+  color: $white;
+  font-size: 28px;
+  margin-bottom: 10px;
+  font-family: "Roboto-Medium";
+}
+.userDescribe {
+  font-size: 16px;
+  font-family: "Roboto-Regular";
+  color: rgba($white, 0.8);
+  margin-bottom: 35px;
+}
+
+.navigation {
+  height: 45px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.navigationItem {
+  flex-grow: 1;
+  height: 100%;
+  line-height: 45px;
+  border-right: 2px solid rgba($white, 0.5);
+  background-color: rgba($green, 0.85);
+  transition: all ease 300ms;
+  text-decoration: none;
+  &:last-child {
+    border-right: none;
+  }
+  &:hover {
+    background-color: rgba($darkgreen, 0.85);
+    cursor: pointer;
+  }
+}
+.navigationLink {
+  text-decoration: none;
+  color: $white;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.title {
+  color: $white;
+  margin: 10px 0 30px;
+  align-self: center;
+}
+
+.formContent {
+  padding: 20px;
+}
+
+.form {
+  flex-grow: 1;
+}
+
+.innerForm {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.field {
+  margin-bottom: 20px;
+}
+
+.fieldIcon {
+  background-color: #f0efe9;
+  padding: 12px 15px;
+  color: #c4cbcd;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.fieldIcon.valid {
+  color: $green;
+  border-right: 1px solid $green;
+}
+
+.fieldIcon.error {
+  color: $warn;
+  border-right: 1px solid $warn;
+}
+
+.icon {
+  width: 15px;
+  height: 17px;
+}
+
+.checkbox {
+  margin-left: -20px;
+  margin-bottom: 20px;
+}
+
+.radioGroup {
+  display: flex;
+}
+
+.radioItem {
+  margin-right: 40px;
+
+  &:last-child {
+    margin: 0;
+  }
+}
+
+.confirm {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+}
+
+.confirmQuestion {
+  color: rgba($white, 0.8);
+  font-family: "Roboto-Bold";
+  margin-bottom: 15px;
+}
+
+.formBtn {
+  border: none;
+  cursor: pointer;
+  background: transparent;
+  font-size: 16px;
+  &:focus {
+    outline: none;
+  }
+}

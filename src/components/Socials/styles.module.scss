@@ -1,0 +1,36 @@
+@import "../../styles/variables.scss";
+@import "../../styles/mixins.scss";
+
+.socialsItem {
+  margin-right: 25px;
+  list-style: none;
+  width: 25px;
+  height: 25px;
+
+  &:last-child {
+    margin: 0;
+  }
+}
+
+.socialsLink {
+  text-decoration: none;
+  display: block;
+  height: 100%;
+}
+
+.socials {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.socialsIcon {
+  color: rgba($white, 0.5);
+  transition: color ease 300ms;
+  height: 100%;
+  &:hover {
+    color: rgba($darkgreen, 1);
+  }
+}

@@ -1,0 +1,51 @@
+@import "../../styles/variables.scss";
+@import "../../styles/mixins.scss";
+
+.radioInput {
+  visibility: hidden;
+}
+
+.radioItem {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.labelText {
+  cursor: pointer;
+  color: rgba($white, 0.8);
+  margin-left: 10px;
+}
+
+.label {
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  display: block;
+  background-color: #fff;
+  border: 1px solid #cfcfcf;
+
+  overflow: hidden;
+  cursor: pointer;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  &:after {
+    content: "";
+    display: block;
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    top: 5px;
+    left: 5px;
+    border-radius: 50%;
+    background-color: #fff;
+  }
+}
+.radioInput:checked + .label:after {
+  background-color: $green;
+}
+.radioInput:checked + .label + .labelText {
+  color: $green;
+}

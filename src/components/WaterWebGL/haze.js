@@ -11,6 +11,7 @@ function Haze({
   shader: frag,
   textures = [],
   loops = 1000,
+  onLoad,
 }) {
   this.loops = loops;
   this.canvas = canvas;
@@ -18,12 +19,16 @@ function Haze({
   this._height = canvas.height;
   let gl = new GL(canvas, null, vert, frag);
   this.gl = gl;
+  this.onLoad = onLoad;
   let haze = this;
   this._textures = textures.map((v, i) =>
     loadTexture(this, i, v)
   );
 
-  Promise.all(this._textures).then(start);
+  Promise.all(this._textures).then(() => {
+    start();
+    if (this.onLoad) this.onLoad();
+  });
 
   function start() {
     let last = 0;

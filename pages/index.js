@@ -25,6 +25,7 @@ const Header = React.forwardRef(
 
 export default function Home() {
   const [isFormFlipped, setFormFlipped] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const formRef = useRef(null);
   const btnRef = useRef(null);
 
@@ -51,6 +52,10 @@ export default function Home() {
     }
   };
 
+  const onBackgroundLoad = () => {
+    setIsLoading(false);
+  };
+
   return (
     <div className="container">
       <Head>
@@ -59,25 +64,30 @@ export default function Home() {
       </Head>
 
       <main className={styles.main}>
-        <WaterBackground></WaterBackground>
-        <div className={styles.mainWrapper}>
-          <Header
-            onClick={toggleFlip}
-            isFormFlipped={isFormFlipped}
-            ref={btnRef}></Header>
+        <WaterBackground
+          onLoad={onBackgroundLoad}></WaterBackground>
+        {isLoading ? (
+          <div className={styles.loadingBg}>Loading...</div>
+        ) : (
+          <div className={styles.mainWrapper}>
+            <Header
+              onClick={toggleFlip}
+              isFormFlipped={isFormFlipped}
+              ref={btnRef}></Header>
 
-          <div className={styles.mainContent}>
-            <WelcomeForm
-              isFlipped={isFormFlipped}
-              toggleFlip={toggleFlip}
-              ref={formRef}></WelcomeForm>
-          </div>
-          <div className={styles.footer}>
-            <div className={styles.copyright}>
-              © Karine Hiulumian | {currentYear}
+            <div className={styles.mainContent}>
+              <WelcomeForm
+                isFlipped={isFormFlipped}
+                toggleFlip={toggleFlip}
+                ref={formRef}></WelcomeForm>
+            </div>
+            <div className={styles.footer}>
+              <div className={styles.copyright}>
+                © Karine Hiulumian | {currentYear}
+              </div>
             </div>
           </div>
-        </div>
+        )}
       </main>
     </div>
   );

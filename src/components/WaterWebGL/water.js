@@ -21,12 +21,13 @@ let textures = [
   },
 ];
 
-export default (container, canvas) => {
+export default (container, canvas, onLoad) => {
   let haze = new Haze({
     canvas,
     shader,
     textures,
     loop: 10000,
+    onLoad,
   });
 
   haze.gl.createUniform("2f", "mouse", 0.5, 0.5);

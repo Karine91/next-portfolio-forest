@@ -1,0 +1,30 @@
+{
+  "env": {
+    "commonjs": true,
+    "es6": true,
+    "browser": true
+  },
+  "parser": "babel-eslint",
+  "parserOptions": {
+    "allowImportExportEverywhere": true,
+    "ecmaVersion": 9,
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "sourceType": "module"
+  },
+  "plugins": ["react"],
+  "extends": ["airbnb"],
+  "rules": {
+    "global-require": 0,
+    "react/self-closing-comp": [
+      "error",
+      {
+        "component": true,
+        "html": true
+      }
+    ],
+    "linebreak-style": ["error", "windows"],
+    "react/react-in-jsx-scope": "off"
+  }
+}

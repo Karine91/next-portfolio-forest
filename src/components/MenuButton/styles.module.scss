@@ -1,0 +1,42 @@
+@import '../../styles/variables.scss';
+@import '../../styles/mixins.scss';
+
+.hamburger-menu-icon {
+  height: 35px;
+  width: 40px;
+  @include mobile {
+    width: 25px;
+    height: 22px;
+  }
+}
+.hamburger-menu {
+  color: #ffffff;
+  z-index: 30;
+  background: none;
+  border: 1px solid transparent;
+  cursor: pointer;
+
+  &:focus,
+  &:active {
+    background: none;
+    border: none;
+    outline: none;
+    border: 1px solid $green;
+  }
+}
+
+.hamburger-menu-icon path {
+  transition: 0.25s ease-in-out;
+  transform-origin: center center;
+}
+.hamburger-menu-icon.open {
+  path:first-child {
+    transform: rotate(-45deg) translate(0%, calc(50% - 2px));
+  }
+  path:nth-child(2) {
+    opacity: 0;
+  }
+  path:last-child {
+    transform: rotate(45deg) translate(0%, calc(-50% + 2px));
+  }
+}

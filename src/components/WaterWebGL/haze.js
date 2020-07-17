@@ -1,10 +1,10 @@
-import GL from "./utils/gl-obj";
-import vert from "./shaders/simple.vert";
+import { assign, throttle } from 'lodash';
+import GL from './utils/gl-obj';
+import vert from './shaders/simple.vert';
 
-import { createCanvas } from "./utils/canvas";
-import { assign, throttle } from "lodash";
-import fill from "./utils/fill";
-import EventDispatcher from "./utils/event-dispatcher";
+import { createCanvas } from './utils/canvas';
+import fill from './utils/fill';
+import EventDispatcher from './utils/event-dispatcher';
 
 function Haze({
   canvas,
@@ -17,13 +17,11 @@ function Haze({
   this.canvas = canvas;
   this._width = canvas.width;
   this._height = canvas.height;
-  let gl = new GL(canvas, null, vert, frag);
+  const gl = new GL(canvas, null, vert, frag);
   this.gl = gl;
   this.onLoad = onLoad;
-  let haze = this;
-  this._textures = textures.map((v, i) =>
-    loadTexture(this, i, v)
-  );
+  const haze = this;
+  this._textures = textures.map((v, i) => loadTexture(this, i, v));
 
   Promise.all(this._textures).then(() => {
     start();
@@ -32,30 +30,30 @@ function Haze({
 
   function start() {
     let last = 0;
-    let frame = 1000 / 60;
+    const frame = 1000 / 60;
     let time = 0;
-    gl.createUniform("1f", "time", time);
+    gl.createUniform('1f', 'time', time);
 
     (function update(now) {
-      let delta = now - last;
+      const delta = now - last;
       let incr = delta / frame;
       if (incr > 1.5) incr = 1.5;
       incr *= haze.timeScale;
       time += incr;
       if (time > haze.loops) time = 0;
       last = now;
-      gl.createUniform("1f", "time", time);
-      haze.dispatchEvent("predraw", {
+      gl.createUniform('1f', 'time', time);
+      haze.dispatchEvent('predraw', {
         deltaTime: incr,
       });
       gl.draw();
       requestAnimationFrame(update);
-    })(0);
+    }(0));
   }
 }
 
 function loadTexture(haze, index, options) {
-  let defaultOptions = {
+  const defaultOptions = {
     file: null,
     name: null,
     repeat: false,
@@ -72,9 +70,9 @@ function loadTexture(haze, index, options) {
   options = assign(defaultOptions, options);
 
   return new Promise((resolve, reject) => {
-    let image = new Image();
-    image.addEventListener("load", (event) => {
-      haze.gl.createUniform("1i", options.name, index);
+    const image = new Image();
+    image.addEventListener('load', (event) => {
+      haze.gl.createUniform('1i', options.name, index);
       resolve(processTexture(haze, index, image, options));
     });
     image.src = options.file;
@@ -82,10 +80,10 @@ function loadTexture(haze, index, options) {
 }
 
 function processTexture(haze, index, image, options) {
-  let canvas = document.createElement("canvas");
-  let ctx = canvas.getContext("2d");
+  const canvas = document.createElement('canvas');
+  const ctx = canvas.getContext('2d');
 
-  let textureObj = assign(
+  const textureObj = assign(
     {
       canvas,
       haze,
@@ -96,18 +94,16 @@ function processTexture(haze, index, image, options) {
         haze.gl.createTexture(
           canvas,
           index,
-          options.repeat ? haze.gl.gl.REPEAT : null
+          options.repeat ? haze.gl.gl.REPEAT : null,
         );
       },
       render() {
-        canvas.width =
-          (options.fill ? haze.width : image.width) *
-          haze.dpi *
-          options.scale.x;
-        canvas.height =
-          (options.fill ? haze.height : image.height) *
-          haze.dpi *
-          options.scale.y;
+        canvas.width = (options.fill ? haze.width : image.width)
+          * haze.dpi
+          * options.scale.x;
+        canvas.height = (options.fill ? haze.height : image.height)
+          * haze.dpi
+          * options.scale.y;
 
         let dimensions = {
           x: 0,
@@ -123,7 +119,7 @@ function processTexture(haze, index, image, options) {
             canvas.width,
             canvas.height,
             options.align.x,
-            options.align.y
+            options.align.y,
           );
         }
 
@@ -132,23 +128,23 @@ function processTexture(haze, index, image, options) {
           dimensions.x,
           dimensions.y,
           dimensions.width,
-          dimensions.height
+          dimensions.height,
         );
 
         this.updateTexture();
       },
       updateSize() {
         this.render();
-        this.dispatchEvent("resize");
+        this.dispatchEvent('resize');
       },
     },
-    EventDispatcher()
+    EventDispatcher(),
   );
 
   textureObj.updateSize();
   haze.addEventListener(
-    "resize",
-    textureObj.updateSize.bind(textureObj)
+    'resize',
+    textureObj.updateSize.bind(textureObj),
   );
 
   return textureObj;
@@ -203,12 +199,12 @@ Haze.prototype = assign(
             this.canvas.height = this.height * this.dpi;
             this.canvas.style.height = `${this.height}px`;
 
-            this.dispatchEvent("resize");
+            this.dispatchEvent('resize');
             this.gl.gl.viewport(
               0,
               0,
               this.canvas.width,
-              this.canvas.height
+              this.canvas.height,
             );
           });
         }, 300);
@@ -218,16 +214,13 @@ Haze.prototype = assign(
     },
     getTextureByName(name) {
       return new Promise((resolve, reject) => {
-        this._textures.forEach((v) =>
-          v.then((texture) => {
-            if (texture.options.name == name)
-              resolve(texture);
-          })
-        );
+        this._textures.forEach((v) => v.then((texture) => {
+          if (texture.options.name == name) resolve(texture);
+        }));
       });
     },
   },
-  EventDispatcher()
+  EventDispatcher(),
 );
 
 export default Haze;

@@ -1,9 +1,13 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React from 'react';
+import PropTypes from 'prop-types';
 
-const Layout = () => {
-  return <>Layout</>;
-};
+import Hero from '../Hero';
+
+const Layout = () => (
+  <>
+    <Hero />
+  </>
+);
 
 Layout.propTypes = {};
 

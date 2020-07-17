@@ -1,5 +1,5 @@
-@import "../../styles/variables.scss";
-@import "../../styles/mixins.scss";
+@import '../../styles/variables.scss';
+@import '../../styles/mixins.scss';
 
 .socialsItem {
   margin-right: 25px;
@@ -27,10 +27,15 @@
   justify-content: center;
 }
 .socialsIcon {
-  color: rgba($white, 0.5);
-  transition: color ease 300ms;
-  height: 100%;
-  &:hover {
-    color: rgba($darkgreen, 1);
+  width: 25px;
+  height: 25px;
+  svg {
+    fill: rgba($white, 0.5);
+    transition: color ease 300ms;
+    width: 100%;
+    height: 100%;
+    &:hover {
+      fill: rgba($darkgreen, 1);
+    }
   }
 }

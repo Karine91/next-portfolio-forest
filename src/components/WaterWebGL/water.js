@@ -1,28 +1,29 @@
-import { createCanvas } from "./utils/canvas";
-import Haze from "./haze";
-import shader from "./shaders/haze-water.frag";
-import TweenLite from "gsap";
-const filePath = "/images/water.jpg";
-const fileMapsPath = "/images/water-maps.jpg";
+import TweenLite from 'gsap';
+import { createCanvas } from './utils/canvas';
+import Haze from './haze';
+import shader from './shaders/haze-water.frag';
 
-let textureAlign = { x: 0.5, y: 0.9 };
-let textures = [
+const filePath = '/images/water.jpg';
+const fileMapsPath = '/images/water-maps.jpg';
+
+const textureAlign = { x: 0.5, y: 0.9 };
+const textures = [
   {
     file: filePath,
-    name: "image",
+    name: 'image',
     align: textureAlign,
     scale: { x: 1, y: 1 },
   },
   {
     file: fileMapsPath,
-    name: "maps",
+    name: 'maps',
     align: textureAlign,
     scale: { x: 0.2, y: 0.2 },
   },
 ];
 
 export default (container, canvas, onLoad) => {
-  let haze = new Haze({
+  const haze = new Haze({
     canvas,
     shader,
     textures,
@@ -30,9 +31,9 @@ export default (container, canvas, onLoad) => {
     onLoad,
   });
 
-  haze.gl.createUniform("2f", "mouse", 0.5, 0.5);
+  haze.gl.createUniform('2f', 'mouse', 0.5, 0.5);
 
-  let parallaxPos = {
+  const parallaxPos = {
     _x: 0,
     _y: 0,
     _willUpdate: false,
@@ -57,10 +58,10 @@ export default (container, canvas, onLoad) => {
       requestAnimationFrame(() => {
         this._willUpdate = false;
         haze.gl.createUniform(
-          "2f",
-          "mouse",
+          '2f',
+          'mouse',
           -(-1 + this.x * 2),
-          -(-1 + this.y * 2)
+          -(-1 + this.y * 2),
         );
       });
     },
@@ -73,7 +74,7 @@ export default (container, canvas, onLoad) => {
       if (samples.length > n) {
         samples = samples.slice(
           samples.length - n,
-          samples.length
+          samples.length,
         );
       }
       return (
@@ -82,18 +83,16 @@ export default (container, canvas, onLoad) => {
     };
   };
 
-  const curve = (v, p = 0.8) =>
-    v == 0
-      ? 0
-      : Math.pow(Math.abs(v), p) * (v / Math.abs(v));
+  const curve = (v, p = 0.8) => (v == 0
+    ? 0
+    : Math.pow(Math.abs(v), p) * (v / Math.abs(v)));
 
-  let smoothX = smooth();
-  let smoothY = smooth();
+  const smoothX = smooth();
+  const smoothY = smooth();
 
-  let isTouchDevice =
-    "ontouchstart" in document.documentElement;
+  const isTouchDevice = 'ontouchstart' in document.documentElement;
 
-  window.addEventListener("mousemove", function (event) {
+  window.addEventListener('mousemove', (event) => {
     if (!isTouchDevice) {
       TweenLite.to(parallaxPos, 1, {
         x: event.pageX / window.innerWidth,
@@ -103,27 +102,26 @@ export default (container, canvas, onLoad) => {
   });
 
   function getDPI() {
-    if (typeof window.devicePixelRatio != "undefined") {
+    if (typeof window.devicePixelRatio !== 'undefined') {
       return window.devicePixelRatio;
-    } else {
-      return 1;
     }
+    return 1;
   }
-  window.addEventListener("resize", updateSize);
+  window.addEventListener('resize', updateSize);
 
   function updateSize() {
-    let dimensions = container.getBoundingClientRect();
+    const dimensions = container.getBoundingClientRect();
 
     haze.width = dimensions.width;
     haze.height = dimensions.height;
     // haze.dpi=getDPI();
     haze.dpi = 1;
-    haze.gl.createUniform("1f", "dpi", haze.dpi);
+    haze.gl.createUniform('1f', 'dpi', haze.dpi);
     haze.gl.createUniform(
-      "2f",
-      "resolution",
+      '2f',
+      'resolution',
       haze.width * haze.dpi,
-      haze.height * haze.dpi
+      haze.height * haze.dpi,
     );
   }
   updateSize();

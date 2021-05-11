@@ -12,7 +12,7 @@
     "curry": "^1.2.0",
     "file-loader": "^6.0.0",
     "gsap": "^3.2.6",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.21",
     "next": "9.3.6",
     "next-images": "^1.4.0",
     "prop-types": "^15.7.2",
